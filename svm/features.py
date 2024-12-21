@@ -52,7 +52,7 @@ def preprocess(docs, c_ngmin=1, c_ngmax=1,
     return features
 
 def doc_to_ngrams(docs, use_cached=True, cache=True,
-                 cache_dir='.cache', transformer_model='all-MiniLM-L6-v2', **kwargs):
+                 cache_dir='.cache', transformer_model='dunzhang/stella_en_400M_v5', **kwargs):
     """
     Return combined bag-of-n-grams and transformer embeddings features for the given document set with progress tracking.
     
