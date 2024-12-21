@@ -44,7 +44,7 @@ docs_tst = preprocess(data_tst.docs,
 # docs_tst = v.transform(docs_tst)
 
 batch_size = 64
-model = SentenceTransformer('dunzhang/stella_en_400M_v5', device='cuda' if torch.cuda.is_available() else 'cpu')
+model = SentenceTransformer('dunzhang/stella_en_400M_v5', device='cuda' if torch.cuda.is_available() else 'cpu', trust_remote_code=True)
 doc_embeddings = []
 for i in tqdm(range(0, len(docs_tst), batch_size), desc="Generating embeddings"):
     batch_docs = docs_tst[i:i+batch_size]

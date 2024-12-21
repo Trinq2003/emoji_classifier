@@ -113,7 +113,7 @@ def doc_to_ngrams(docs, use_cached=True, cache=True,
         print("[SUB-PROGRESS] Generating transformer embeddings...")
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
         print(f"[INFO] Using device: {device}")
-        model = SentenceTransformer(transformer_model, device=device)
+        model = SentenceTransformer(transformer_model, device=device, trust_remote_code=True)
         # To handle large datasets, encode in batches
         batch_size = 64
         doc_embeddings = []
