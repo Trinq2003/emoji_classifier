@@ -121,13 +121,14 @@ def doc_to_ngrams(docs, use_cached=True, cache=True,
             batch_docs = docs[i:i+batch_size]
             embeddings = model.encode(batch_docs, show_progress_bar=False, convert_to_numpy=True)
             doc_embeddings.append(embeddings)
-        doc_embeddings = np.vstack(doc_embeddings)
+        # doc_embeddings = np.vstack(doc_embeddings)
         # Convert embeddings to sparse matrix
-        doc_embeddings_sparse = csr_matrix(doc_embeddings)
+        # doc_embeddings_sparse = csr_matrix(doc_embeddings)
 
         # Combine TF-IDF vectors with transformer embeddings
-        print("Combining TF-IDF and transformer embeddings...")
-        vectors = hstack([vectors_tfidf, doc_embeddings_sparse])
+        # print("Combining TF-IDF and transformer embeddings...")
+        # vectors = hstack([vectors_tfidf, doc_embeddings_sparse])
+        vectors = doc_embeddings
 
         # Save to cache if required
         if cache and param['input_name']:
