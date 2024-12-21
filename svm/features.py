@@ -129,6 +129,7 @@ def doc_to_ngrams(docs, use_cached=True, cache=True,
         # print("Combining TF-IDF and transformer embeddings...")
         # vectors = hstack([vectors_tfidf, doc_embeddings_sparse])
         vectors = doc_embeddings
+        print(f'[INFO] Dimensionality of features: {vectors.shape}')
 
         # Save to cache if required
         if cache and param['input_name']:
