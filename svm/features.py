@@ -24,52 +24,31 @@ def identity(x):
     return x
 
 def preprocess(docs, c_ngmin=1, c_ngmax=1,
-               w_ngmin=1, w_ngmax=1, lowercase=None):
-    """
-    Enhanced preprocessing: handle emojis, tokenize, lowercase, lemmatize.
-    """
-    lemmatizer = WordNetLemmatizer()
+        w_ngmin=1, w_ngmax=1, lowercase=None):
+    # convert docs to word/char ngrams with optional case normaliztion
+    # this would ideally be tha anlyzer parameter of the
+    # vectorizer, but requires lambda - which breaks saving 
     features = []
     for doc in docs:
-        # Extract emojis
-        # emojis_in_doc = [c for c in doc if c in emoji.UNICODE_EMOJI_ENGLISH]
-        # Remove emojis from text
-        # doc = emoji.replace_emoji(doc, replace='')
-
-        # Tokenization (word and character n-grams)
-        tokens = re.findall(r'\w+|[^ \t\n\r\f\v\w]+', doc)
-
-        # Lowercase if required
-        if lowercase == 'all':
-            tokens = [token.lower() for token in tokens]
-        elif lowercase == 'word':
-            tokens = [token.lower() if token.isalpha() else token for token in tokens]
-
-        # Lemmatization
-        tokens = [lemmatizer.lemmatize(token) for token in tokens]
-
-        # Generate character n-grams
-        char_ngrams = []
-        for token in tokens:
-            if len(token) >= c_ngmin:
-                for i in range(len(token) - c_ngmin + 1):
-                    for n in range(c_ngmin, c_ngmax + 1):
-                        if i + n <= len(token):
-                            char_ngram = token[i:i+n]
-                            char_ngrams.append(char_ngram)
-
-        # Generate word n-grams
-        word_ngrams = []
-        if w_ngmin > 0:
-            for i in range(len(tokens) - w_ngmin + 1):
-                for n in range(w_ngmin, w_ngmax + 1):
-                    if i + n <= len(tokens):
-                        word_ngram = 'W_' + '_'.join(tokens[i:i+n])
-                        word_ngrams.append(word_ngram)
-
-        # Combine n-grams and emojis
-        doc_features = char_ngrams + word_ngrams
-        features.append(doc_features)
+        # character n-grams
+        if lowercase == 'char':
+            docfeat = get_ngrams(doc.lower(),
+                    ngmax=c_ngmax, ngmin=c_ngmin,
+                    tokenizer=list)
+        else:
+            docfeat = get_ngrams(doc,
+                    ngmax=c_ngmax, ngmin=c_ngmin,
+                    tokenizer=list)
+        # word n-grams
+        if lowercase == 'word':
+            docfeat.extend(get_ngrams(doc.lower(),
+                        ngmax=w_ngmax, ngmin=w_ngmin,
+                        append="W"))
+        else:
+            docfeat.extend(get_ngrams(doc,
+                        ngmax=w_ngmax, ngmin=w_ngmin,
+                        append="W"))
+        features.append(docfeat)
     return features
 
 def doc_to_ngrams(docs, use_cached=True, cache=True,
