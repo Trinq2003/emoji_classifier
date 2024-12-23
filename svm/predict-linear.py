@@ -7,7 +7,7 @@ from emoji_data import load
 from features import doc_to_ngrams, preprocess
 from tqdm import tqdm
 import numpy as np
-from sentence_transformers import SentenceTransformer
+# from sentence_transformers import SentenceTransformer
 import torch
 
 from argparse import ArgumentParser
