@@ -129,8 +129,8 @@ def doc_to_ngrams(docs, use_cached=True, cache=True,
         # Combine TF-IDF vectors with transformer embeddings
         # print("Combining TF-IDF and transformer embeddings...")
         # vectors = hstack([vectors_tfidf, doc_embeddings_sparse])
-        scaler = TruncatedSVD(n_components=1024)
-        vectors = scaler.fit_transform(doc_embeddings)
+        # scaler = TruncatedSVD(n_components=1024)
+        # vectors = scaler.fit_transform(doc_embeddings)
         print(f'[INFO] Dimensionality of features: {vectors.shape}')
 
         # Save to cache if required

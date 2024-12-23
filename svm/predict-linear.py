@@ -57,9 +57,11 @@ if opt.classifier == 'lr':
     m = LogisticRegression(dual=True, C=opt.C, verbose=0,
             class_weight=opt.class_weight)
 else:
-    from sklearn.svm import LinearSVC
-    m = LinearSVC(dual=True, C=opt.C, verbose=0,
-            class_weight=opt.class_weight)
+    from sklearn.linear_model import SGDClassifier
+    m = SGDClassifier(loss='hinge', max_iter=10000, tol=1e-4)
+    # from sklearn.svm import LinearSVC
+    # m = LinearSVC(dual=True, C=opt.C, verbose=0,
+    #         class_weight=opt.class_weight)
 
 if opt.mult_class == 'ovo':
     mc = OneVsOneClassifier
