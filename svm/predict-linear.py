@@ -41,16 +41,16 @@ docs_tst = preprocess(data_tst.docs,
     w_ngmin=opt.w_ngmin, w_ngmax=opt.w_ngmax,
     lowercase=opt.lowercase)
 
-# docs_tst = v.transform(docs_tst)
+docs_tst = v.transform(docs_tst)
 
-batch_size = 64
-model = SentenceTransformer('dunzhang/stella_en_400M_v5', device='cuda' if torch.cuda.is_available() else 'cpu', trust_remote_code=True)
-doc_embeddings = []
-for i in tqdm(range(0, len(docs_tst), batch_size), desc="Generating embeddings"):
-    batch_docs = docs_tst[i:i+batch_size]
-    embeddings = model.encode(batch_docs, show_progress_bar=False, convert_to_numpy=True)
-    doc_embeddings.append(embeddings)
-docs_tst = np.vstack(doc_embeddings)
+# batch_size = 64
+# model = SentenceTransformer('dunzhang/stella_en_400M_v5', device='cuda' if torch.cuda.is_available() else 'cpu', trust_remote_code=True)
+# doc_embeddings = []
+# for i in tqdm(range(0, len(docs_tst), batch_size), desc="Generating embeddings"):
+#     batch_docs = docs_tst[i:i+batch_size]
+#     embeddings = model.encode(batch_docs, show_progress_bar=False, convert_to_numpy=True)
+#     doc_embeddings.append(embeddings)
+# docs_tst = np.vstack(doc_embeddings)
 
 if opt.classifier == 'lr': 
     from sklearn.linear_model import LogisticRegression
