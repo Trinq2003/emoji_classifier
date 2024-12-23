@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 import numpy as np
 
 from emoji_data import load
-from features import doc_to_ngrams
+from svm.features_modified import doc_to_ngrams
 
 from cmdline import add_args
 from argparse import ArgumentParser

@@ -8,7 +8,7 @@ import numpy as np
 import tqdm
 
 from emoji_data import load
-from features import doc_to_ngrams
+from svm.features_modified import doc_to_ngrams
 
 from cmdline import add_args
 from argparse import ArgumentParser

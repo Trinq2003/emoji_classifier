@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 from emoji_data import load
-from features import doc_to_numseq
+from svm.features_modified import doc_to_numseq
 import random
 import numpy as np
 from sklearn.model_selection import StratifiedShuffleSplit
