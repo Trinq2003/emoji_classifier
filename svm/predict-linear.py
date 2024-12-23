@@ -4,7 +4,7 @@ from sklearn.svm import LinearSVC
 from sklearn.multiclass import OneVsOneClassifier, OneVsRestClassifier
 
 from emoji_data import load
-from svm.features_modified import doc_to_ngrams, preprocess
+from features import doc_to_ngrams, preprocess
 from tqdm import tqdm
 import numpy as np
 from sentence_transformers import SentenceTransformer
