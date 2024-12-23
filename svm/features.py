@@ -15,6 +15,7 @@ import emoji
 from nltk.stem import WordNetLemmatizer
 from nltk import download
 import torch
+from sklearn.decomposition import TruncatedSVD
 
 # Download required NLTK data
 download('wordnet')
@@ -128,7 +129,8 @@ def doc_to_ngrams(docs, use_cached=True, cache=True,
         # Combine TF-IDF vectors with transformer embeddings
         # print("Combining TF-IDF and transformer embeddings...")
         # vectors = hstack([vectors_tfidf, doc_embeddings_sparse])
-        vectors = doc_embeddings
+        scaler = TruncatedSVD(n_components=1024)
+        vectors = scaler.fit_transform(doc_embeddings)
         print(f'[INFO] Dimensionality of features: {vectors.shape}')
 
         # Save to cache if required
