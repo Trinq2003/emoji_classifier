@@ -35,7 +35,7 @@ docs_trn, v, _ = doc_to_ngrams(data_trn.docs, min_df=opt.min_df,
                           c_ngmax = opt.c_ngmax,
                           w_ngmin = opt.w_ngmin,
                           w_ngmax = opt.w_ngmax,
-                          lowercase = opt.lowercase)
+                          lowercase = opt.lowercase, cache=False, use_cached=False)
 docs_tst = preprocess(data_tst.docs,
     c_ngmin=opt.c_ngmin, c_ngmax=opt.c_ngmax,
     w_ngmin=opt.w_ngmin, w_ngmax=opt.w_ngmax,
